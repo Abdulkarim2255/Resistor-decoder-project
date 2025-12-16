@@ -37,7 +37,7 @@ void menu_item_1(void) {
     else if (tol == 9) tolerance = "5%";
     else if (tol == 10) tolerance = "10%";
 
-    printf("\nResistance: %.2f Ω ± %s\n", resistance, tolerance);
+    printf("\nResistance: %.2f Ohms +/- %s\n", resistance, tolerance);
 
     printf("\nSave to inventory.txt? (y/n): ");
     scanf(" %c", &save);
@@ -47,7 +47,8 @@ void menu_item_1(void) {
             time_t now = time(NULL);
             char* ts = ctime(&now);
             ts[strlen(ts)-1] = '\0';
-            fprintf(f, "%s | %.2f Ω | ±%s\n", ts, resistance, tolerance);
+
+            fprintf(f, "%s | %.2f Ohms | +/-%s\n", ts, resistance, tolerance);
             fclose(f);
             printf("Saved successfully!\n");
         } else {
@@ -55,7 +56,8 @@ void menu_item_1(void) {
         }
     }
     printf("\nPress Enter to return to menu...");
-    getchar(); getchar();
+    
+    getchar(); getchar(); 
 }
 
 void menu_item_2(void) {
@@ -109,6 +111,7 @@ void menu_item_4(void) {
     char line[256];
 
     while (fgets(line, sizeof(line), f)) {
+
         if (sscanf(line, "%*[^|]| %lf", &value) == 1) {
             sum += value;
             count++;
@@ -120,8 +123,8 @@ void menu_item_4(void) {
         printf("No resistor data logged yet.\n");
     } else {
         printf("Total resistors logged: %d\n", count);
-        printf("Average resistance: %.2f Ω\n", sum / count);
-        printf("Total resistance: %.2f Ω\n", sum);
+        printf("Average resistance: %.2f Ohms\n", sum / count);
+        printf("Total resistance: %.2f Ohms\n", sum);
     }
     printf("\nPress Enter to return to menu...");
     getchar(); getchar();
